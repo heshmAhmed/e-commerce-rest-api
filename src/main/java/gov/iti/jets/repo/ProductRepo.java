@@ -76,4 +76,14 @@ public class ProductRepo {
         entityManager.getTransaction().commit();
         return true;
     }
+
+    public List<ProductEntity> getProductsByCategory(CategoryEntity category) {
+        Query query =
+                entityManager.createQuery("select c.productEntitySet from CategoryEntity c where c.id = :id or c.category = :cat"
+                                ,ProductEntity.class)
+                        .setParameter("id", category.getId())
+                        .setParameter("cat", category.getCategory());
+
+        return query.getResultList();
+    }
 }

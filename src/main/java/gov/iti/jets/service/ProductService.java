@@ -1,22 +1,23 @@
 package gov.iti.jets.service;
 
-import gov.iti.jets.repo.ProductCategoryRepo;
+import gov.iti.jets.repo.CategoryRepo;
 import gov.iti.jets.repo.ProductRepo;
 import gov.iti.jets.repo.entity.CategoryEntity;
 import gov.iti.jets.repo.entity.ProductEntity;
 import gov.iti.jets.service.dtos.ProductDto;
 import gov.iti.jets.service.mappers.ProductMapper;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public enum ProductService {
     INSTANCE;
     private final ProductRepo productRepo = ProductRepo.getInstance();
     private final ProductMapper productMapper = ProductMapper.INSTANCE;
-    private final ProductCategoryRepo productCategoryRepo = ProductCategoryRepo.getInstance();
+    private final CategoryRepo categoryRepo = CategoryRepo.getInstance();
 
     public boolean updateProductCategories(Long id, List<String> categories) {
         Set<CategoryEntity> categoryEntities = new HashSet<>();
-        categories.forEach(category -> categoryEntities.add(productCategoryRepo.insertCategory(new CategoryEntity(category))));
+        categories.forEach(category -> categoryEntities.add(categoryRepo.insertCategory(new CategoryEntity(category))));
         return productRepo.updateProductCategories(id, categoryEntities);
     }
 
@@ -68,7 +69,7 @@ public enum ProductService {
         ProductEntity productEntity = productMapper.productDtoToEntity(productDto);
         Set<CategoryEntity> categoryEntities = new HashSet<>();
         productDto.getCategories().forEach(category -> {
-            categoryEntities.add(productCategoryRepo.insertCategory(new CategoryEntity(category)));
+            categoryEntities.add(categoryRepo.insertCategory(new CategoryEntity(category)));
         });
         productEntity.setCategories(categoryEntities);
         return productEntity;
@@ -76,5 +77,12 @@ public enum ProductService {
 
     public boolean removeProduct(Long productId) {
         return productRepo.deleteProduct(productId);
+    }
+
+    public List<ProductDto> getCategoryProducts(String category) {
+        return productRepo.getProductsByCategory(new CategoryEntity(category))
+                .stream().map(
+                        this::mapEntityToDto
+                ).collect(Collectors.toList());
     }
 }

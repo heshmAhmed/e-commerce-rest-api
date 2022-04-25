@@ -97,26 +97,31 @@ Accept: application/json
 Content-Type: application/json
 
 ["CAT1", "CAT2", "CAT4"]
-#####################################################################################
+####################################Categories#################################################
+
+GET  /ecommerce-rest-api/api/v1/categories/CAT4/products HTTP/1.1
+Host: localhost:9090
+Accept: application/json
+Content-Type: application/json
+
+###
+
+GET  /ecommerce-rest-api/api/v1/categories HTTP/1.1
+Host: localhost:9090
+Accept: application/json
+Content-Type: application/json
+
+#########################################################################################3
+
 ###
 GET  /ecommerce-api/api/v1/orders HTTP/1.1
 Host: localhost:9090
 Accept: application/json
 Content-Type: application/json
 
-
-GET  /ecommerce-api/api/v1/products/1/categories HTTP/1.1
-Host: localhost:9090
-Accept: application/json
-Content-Type: application/json
-
-
 ###
 
-GET  /ecommerce-api/api/v1/categories/CAT1/products HTTP/1.1
-Host: localhost:9090
-Accept: application/json
-Content-Type: application/json
+
 
 ###
 
