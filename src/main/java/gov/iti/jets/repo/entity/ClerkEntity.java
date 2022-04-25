@@ -19,4 +19,11 @@ public class ClerkEntity extends UserEntity {
     public void setHireDate(Date hireDate) {
         this.hireDate = hireDate;
     }
+
+    @Override
+    public String toString() {
+        return "ClerkEntity{" +
+                "hireDate=" + hireDate +
+                '}';
+    }
 }

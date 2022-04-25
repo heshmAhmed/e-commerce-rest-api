@@ -43,4 +43,13 @@ public class CustomerEntity extends UserEntity{
     public void setAddress(String address) {
         this.address = address;
     }
+
+    @Override
+    public String toString() {
+        return "CustomerEntity{" +
+                "joinedDate=" + joinedDate +
+                ", birthDate=" + birthDate +
+                ", address='" + address + '\'' +
+                '}';
+    }
 }
