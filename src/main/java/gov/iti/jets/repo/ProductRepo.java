@@ -1,12 +1,13 @@
 package gov.iti.jets.repo;
 
+import gov.iti.jets.repo.entity.CategoryEntity;
 import gov.iti.jets.repo.entity.ProductEntity;
 import gov.iti.jets.repo.util.EntityManagerProvider;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
-
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 public class ProductRepo {
     private final EntityManager entityManager = EntityManagerProvider.INSTANCE.getEntityManager();
@@ -23,24 +24,38 @@ public class ProductRepo {
         return productEntity;
     }
 
-    public ProductEntity updateProduct(ProductEntity productEntity) {
+    public boolean updateProduct(ProductEntity productEntity) {
+        ProductEntity productEntity1 = entityManager.find(ProductEntity.class, productEntity.getId());
+        if(productEntity1 == null)
+            return false;
+        System.out.println(productEntity1);
+        productEntity1.setImg(productEntity.getImg());
+        productEntity1.setStock(productEntity.getStock());
+        productEntity1.setDesc(productEntity.getDesc());
+        productEntity1.setName(productEntity.getName());
+        productEntity1.setPrice(productEntity.getPrice());
         entityManager.getTransaction().begin();
-        productEntity = entityManager.merge(productEntity);
+        entityManager.merge(productEntity1);
         entityManager.getTransaction().commit();
-        return productEntity;
+        return true;
     }
 
     public boolean deleteProduct(Long id) {
-        entityManager.getTransaction().begin();
-        int rowUpdate = entityManager.createQuery("delete from ProductEntity where id = :id").setParameter("id", id).executeUpdate();
-        entityManager.getTransaction().commit();
-        return rowUpdate > 0;
+        ProductEntity productEntity = entityManager.find(ProductEntity.class, id);
+        boolean removed = false;
+        if(productEntity != null) {
+            entityManager.getTransaction().begin();
+            entityManager.remove(productEntity);
+            entityManager.getTransaction().commit();
+            removed = true;
+        }
+        return removed;
     }
 
     public List<ProductEntity> getAllProduct(int page, int rpp) {
         Query query = entityManager.createQuery("from ProductEntity", ProductEntity.class);
         query.setFirstResult((page-1) * rpp);
-        query.setMaxResults(page);
+        query.setMaxResults(rpp);
         return query.getResultList();
     }
 
@@ -50,5 +65,15 @@ public class ProductRepo {
         if(productEntity != null)
             optionalProduct = Optional.of(productEntity);
         return optionalProduct;
+    }
+    public boolean updateProductCategories(Long id, Set<CategoryEntity> categoryEntities) {
+        ProductEntity productEntity = entityManager.find(ProductEntity.class,  id);
+        if(productEntity == null)
+            return false;
+        productEntity.setCategories(categoryEntities);
+        entityManager.getTransaction().begin();
+        entityManager.merge(productEntity);
+        entityManager.getTransaction().commit();
+        return true;
     }
 }

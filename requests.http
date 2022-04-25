@@ -33,38 +33,23 @@ Content-Type: application/json
     "password": 1234
 }
 
-##################################################################
+############################Product endpoint######################################
 
-GET  /ecommerce-api/api/v1/orders HTTP/1.1
+GET /ecommerce-rest-api/api/v1/products
 Host: localhost:9090
 Accept: application/json
 Content-Type: application/json
 
 ###
 
-GET /ecommerce-api/api/v1/products?fields=name,id
+GET /ecommerce-rest-api/api/v1/products/1
 Host: localhost:9090
 Accept: application/json
 Content-Type: application/json
 
 ###
 
-GET /ecommerce-api/api/v1/products/1
-Host: localhost:9090
-Accept: application/json
-Content-Type: application/json
-
-###
-
-GET /ecommerce-api/api/v1/products
-Host: localhost:9090
-Accept: application/json
-Content-Type: application/xml
-
-
-###
-
-POST  /ecommerce-api/api/v1/products HTTP/1.1
+POST  /ecommerce-rest-api/api/v1/products HTTP/1.1
 Host: localhost:9090
 Accept: application/json
 Content-Type: application/json
@@ -73,11 +58,52 @@ Content-Type: application/json
     "name": "prod",
     "price": 50,
     "desc": "desc",
-    "manuDate": "2022-04-11T21:10:15.038Z[UTC]",
+    "stock": 50,
     "categories": ["CAT1"]
 }
 
 ###
+PUT  /ecommerce-rest-api/api/v1/products HTTP/1.1
+Host: localhost:9090
+Accept: application/json
+Content-Type: application/json
+
+{
+  "id": 1,
+  "name": "prod",
+  "price": 60000,
+  "desc": "desc",
+  "stock": 5000
+}
+
+###
+
+DELETE   /ecommerce-rest-api/api/v1/products/11 HTTP/1.1
+Host: localhost:9090
+Accept: application/json
+Content-Type: application/json
+
+###
+GET  /ecommerce-rest-api/api/v1/products/1/categories HTTP/1.1
+Host: localhost:9090
+Accept: application/json
+Content-Type: application/json
+
+
+###
+PUT  /ecommerce-rest-api/api/v1/products/1/categories HTTP/1.1
+Host: localhost:9090
+Accept: application/json
+Content-Type: application/json
+
+["CAT1", "CAT2", "CAT4"]
+#####################################################################################
+###
+GET  /ecommerce-api/api/v1/orders HTTP/1.1
+Host: localhost:9090
+Accept: application/json
+Content-Type: application/json
+
 
 GET  /ecommerce-api/api/v1/products/1/categories HTTP/1.1
 Host: localhost:9090

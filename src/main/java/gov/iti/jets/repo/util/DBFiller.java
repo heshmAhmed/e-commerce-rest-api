@@ -46,13 +46,16 @@ public class DBFiller {
         productEntity.setName("product name1");
         productEntity.setStock(50L);
         productEntity.setImg("product img1");
+        productEntity.setPrice(5000.0);
         productEntity.getCategories().add(new CategoryEntity(1L));
 
         ProductEntity productEntity2 = new ProductEntity();
         productEntity2.setDesc("product desc2");
         productEntity2.setName("product name2");
         productEntity2.setStock(50L);
+        productEntity2.setPrice(5000.0);
         productEntity2.setImg("product img2");
+
         productEntity2.getCategories().add(new CategoryEntity(2L));
 
 
@@ -61,6 +64,7 @@ public class DBFiller {
         productEntity3.setName("product name3");
         productEntity3.setStock(50L);
         productEntity3.setImg("product img3");
+        productEntity3.setPrice(5000.0);
         productEntity3.getCategories().add(new CategoryEntity(1L));
 
 
@@ -69,6 +73,7 @@ public class DBFiller {
         productEntity4.setName("product name4");
         productEntity4.setStock(50L);
         productEntity4.setImg("product img4");
+        productEntity4.setPrice(5000.0);
         productEntity4.getCategories().add(new CategoryEntity(2L));
 
 
@@ -76,6 +81,7 @@ public class DBFiller {
         productEntity5.setDesc("product desc5");
         productEntity5.setName("product name5");
         productEntity5.setStock(50L);
+        productEntity5.setPrice(5000.0);
         productEntity5.setImg("product img5");
         productEntity5.getCategories().add(new CategoryEntity(3L));
 

@@ -17,6 +17,7 @@ public class ProductEntity {
     private String desc;
     private String img;
     private Long stock;
+    private Double price = 0.0;
     @ManyToMany(fetch= FetchType.LAZY)
     @JoinTable(name="product_has_categories",
             joinColumns = {@JoinColumn(name="product_id", nullable=false,
@@ -71,5 +72,26 @@ public class ProductEntity {
 
     public void setCategories(Set<CategoryEntity> categories) {
         this.categories = categories;
+    }
+
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
+    }
+
+    @Override
+    public String toString() {
+        return "ProductEntity{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", desc='" + desc + '\'' +
+                ", img='" + img + '\'' +
+                ", stock=" + stock +
+                ", price=" + price +
+                ", categories=" + categories +
+                '}';
     }
 }

@@ -10,4 +10,8 @@ public enum EntityManagerProvider {
     public EntityManager getEntityManager() {
         return entityManagerFactory.createEntityManager();
     }
+
+    public void closeEntityManagerFactory(){
+        entityManagerFactory.close();
+    }
 }

@@ -26,6 +26,10 @@ public class CategoryEntity {
         this.id = id;
     }
 
+    public CategoryEntity(String category) {
+        this.category = category;
+    }
+
     public Long getId() {
         return id;
     }
