@@ -41,7 +41,7 @@ public enum ProductService {
         List<ProductEntity> productEntityList = productRepo.getAllProduct(page, rpp);
         List<ProductDto> productDtos = new ArrayList<>();
         productEntityList.forEach(productEntity -> {
-            ProductDto productDto = mapEntityToDto(productEntity);
+            ProductDto productDto = productMapper.mapEntityToDto(productEntity);
             productDtos.add(productDto);
         });
         return productDtos;
@@ -51,24 +51,18 @@ public enum ProductService {
         Optional<ProductEntity> productEntityOptional = productRepo.findProductById(id);
         Optional<ProductDto> productDtoOptional = Optional.empty();
         if(productEntityOptional.isPresent()){
-            ProductDto productDto = mapEntityToDto(productEntityOptional.get());
+            ProductDto productDto = productMapper.mapEntityToDto(productEntityOptional.get());
             productDtoOptional = Optional.of(productDto);
         }
         return productDtoOptional;
     }
 
-    private ProductDto mapEntityToDto(ProductEntity productEntity) {
-        ProductDto productDto = productMapper.productEntityToDto(productEntity);
-        List<String> categories = new ArrayList<>();
-        productEntity.getCategories().forEach(category -> categories.add(category.getCategory()));
-        productDto.setCategories(categories);
-        return productDto;
-    }
+
 
     private ProductEntity mapDtoToEntity(ProductDto productDto) {
         ProductEntity productEntity = productMapper.productDtoToEntity(productDto);
         Set<CategoryEntity> categoryEntities = new HashSet<>();
-        productDto.getCategories().forEach(category -> {
+        productDto.getCategoryList().forEach(category -> {
             categoryEntities.add(categoryRepo.insertCategory(new CategoryEntity(category)));
         });
         productEntity.setCategories(categoryEntities);
@@ -82,7 +76,7 @@ public enum ProductService {
     public List<ProductDto> getCategoryProducts(String category) {
         return productRepo.getProductsByCategory(new CategoryEntity(category))
                 .stream().map(
-                        this::mapEntityToDto
+                        productMapper::mapEntityToDto
                 ).collect(Collectors.toList());
     }
 }

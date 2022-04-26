@@ -13,4 +13,7 @@ public class ErrorMessage {
         this.code = code;
         this.desc = desc;
     }
+
+    public ErrorMessage() {
+    }
 }

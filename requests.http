@@ -111,29 +111,97 @@ Host: localhost:9090
 Accept: application/json
 Content-Type: application/json
 
-#########################################################################################3
+#####################################ORDER####################################################3
 
 ###
-GET  /ecommerce-api/api/v1/orders HTTP/1.1
+GET  /ecommerce-rest-api/api/v1/orders HTTP/1.1
 Host: localhost:9090
 Accept: application/json
 Content-Type: application/json
 
 ###
-
-
-
-###
-
-GET  /ecommerce-api/api/v1/customers/5 HTTP/1.1
+GET  /ecommerce-rest-api/api/v1/orders/1 HTTP/1.1
 Host: localhost:9090
-Accept: jets/media
+Accept: application/json
+Content-Type: application/json
+
+
+###
+DELETE  /ecommerce-rest-api/api/v1/orders/1 HTTP/1.1
+Host: localhost:9090
+Accept: application/json
+Content-Type: application/json
+
+
+###
+PATCH  /ecommerce-rest-api/api/v1/orders/1/status HTTP/1.1
+Host: localhost:9090
+Accept: application/json
+Content-Type: application/json
+
+{
+  "orderStatus": "APPROVED"
+}
+
+###############################CUSTOMER#############################################
 
 ###
 
-POST /ecommerce-api/api/v1/customers HTTP/1.1
-Host:localhost:9090
-Content-Type: jets/media
+GET  /ecommerce-rest-api/api/v1/customers/6 HTTP/1.1
+Host: localhost:9090
+Accept: application/json
 
-CustomerEntity [address=address, email=email, name=name 
-                ,password=password]
+###
+
+POST /ecommerce-rest-api/api/v1/customers HTTP/1.1
+Host:localhost:9090
+Content-Type: application/json
+
+{
+  "email": "heshamCustomer@gmail.com",
+  "joinDate": "2022-04-11T21:10:15.038Z[UTC]",
+  "birthDate": "2022-04-11T21:10:15.038Z[UTC]",
+  "name": "hesham",
+  "password": 1234,
+  "address": "8 st fahmy mabrook"
+}
+
+###
+GET /ecommerce-rest-api/api/v1/customers/1/orders HTTP/1.1
+Host:localhost:9090
+Content-Type: application/json
+
+
+###
+POST /ecommerce-rest-api/api/v1/customers/1/orders HTTP/1.1
+Host:localhost:9090
+Content-Type: application/json
+
+{
+  "fireDate": "2022-04-11T21:10:15.038Z[UTC]",
+  "status": "SUBMITTED",
+  "price": 500,
+  "orderProducts": [
+    {
+      "id": {"productId": 1},
+      "quantity": 50,
+      "total": 250
+    },
+    {
+      "id": {"productId": 2},
+      "quantity": 50,
+      "total": 250
+    }
+    ]
+}
+
+###
+GET /ecommerce-rest-api/api/v1/customers/1/orders/2 HTTP/1.1
+Host:localhost:9090
+Content-Type: application/json
+
+###
+DELETE /ecommerce-rest-api/api/v1/customers/1/orders/1 HTTP/1.1
+Host:localhost:9090
+Content-Type: application/json
+

@@ -1,10 +1,7 @@
 package gov.iti.jets.api.controllers;
 
 import gov.iti.jets.api.dtos.ErrorMessage;
-import gov.iti.jets.api.dtos.PostClerkRequest;
-import gov.iti.jets.repo.entity.ProductEntity;
 import gov.iti.jets.service.ProductService;
-import gov.iti.jets.service.dtos.ClerkDto;
 import gov.iti.jets.service.dtos.ProductDto;
 import jakarta.json.Json;
 import jakarta.json.JsonArray;
@@ -63,7 +60,7 @@ public class ProductController {
             Response response = Response.status(Status.NOT_FOUND).entity(errorMessage).build();
             throw new NotFoundException(response);
         }
-        return Response.ok().entity(productDtoOptional.get().getCategories()).build();
+        return Response.ok().entity(productDtoOptional.get().getCategoryList()).build();
     }
 
     @PUT
@@ -124,7 +121,7 @@ public class ProductController {
                 if(field.equals("categories"))
                 {
                     JsonArrayBuilder categoriesBuilder = Json.createArrayBuilder();
-                    product.getCategories().forEach(categoriesBuilder::add);
+                    product.getCategoryList().forEach(categoriesBuilder::add);
                     jsonObjectBuilder.add("categories", categoriesBuilder.build());
                 }
             }

@@ -25,22 +25,11 @@ public class OrderEntity {
     @JoinColumn(name = "customer_id", nullable = false)
     private CustomerEntity customer;
 
-    @Column(name = "is_submitted")
-    private Boolean isSubmitted = false;
-
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "order", cascade = CascadeType.REMOVE)
     private Set<OrderProductEntity> orderProducts = new HashSet<>();
 
     public Long getId() {
         return id;
-    }
-
-    public Boolean getSubmitted() {
-        return isSubmitted;
-    }
-
-    public void setSubmitted(Boolean submitted) {
-        isSubmitted = submitted;
     }
 
     public Set<OrderProductEntity> getOrderProducts() {

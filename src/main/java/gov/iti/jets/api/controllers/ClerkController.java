@@ -2,7 +2,7 @@ package gov.iti.jets.api.controllers;
 
 import java.util.Optional;
 import gov.iti.jets.api.dtos.ErrorMessage;
-import gov.iti.jets.api.dtos.PostClerkRequest;
+import gov.iti.jets.api.dtos.PostUserRequest;
 import gov.iti.jets.service.ClerkService;
 import gov.iti.jets.service.dtos.ClerkDto;
 import jakarta.ws.rs.*;
@@ -34,7 +34,7 @@ public class ClerkController {
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response createClerk(PostClerkRequest clerk){
+    public Response createClerk(PostUserRequest clerk){
         ClerkDto clerkDto = new ClerkDto(clerk.getName(), clerk.getEmail(), clerk.getHireDate());
         Optional<ClerkDto> clerkDtoOptional = clerkService.insertClerk(clerkDto);
         if(clerkDtoOptional.isEmpty()){

@@ -1,7 +1,7 @@
 package gov.iti.jets.repo.util;
 
 import gov.iti.jets.repo.OrderRepo;
-import gov.iti.jets.repo.ProductCategoryRepo;
+import gov.iti.jets.repo.CategoryRepo;
 import gov.iti.jets.repo.ProductRepo;
 import gov.iti.jets.repo.UserRepo;
 import gov.iti.jets.repo.entity.*;
@@ -21,7 +21,7 @@ public class DBFiller {
     }
 
     private static void fillCategoriesTable() {
-        ProductCategoryRepo productCategoryRepo = ProductCategoryRepo.getInstance();
+        CategoryRepo productCategoryRepo = CategoryRepo.getInstance();
         CategoryEntity category = new CategoryEntity();
         category.setCategory("CAT1");
 
