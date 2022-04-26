@@ -113,14 +113,21 @@ public class OrderRepo {
     }
 
     public boolean cancelOrder(Long customerId, Long orderId) {
-        entityManager.getTransaction().begin();
-        boolean cancelled =
-                entityManager.createQuery("update OrderEntity set status = :status where customer.id = :cid and id = :oid")
-                .setParameter("status", OrderStatus.CANCELLED)
-                .setParameter("cid", customerId)
-                .setParameter("oid", orderId)
-                .executeUpdate() > 0;
-        entityManager.getTransaction().commit();
+        boolean cancelled = false;
+        try {
+            entityManager.getTransaction().begin();
+            OrderEntity orderEntity =
+                    entityManager.createQuery("from OrderEntity where customer.id = :cid and id = :oid", OrderEntity.class)
+                            .setParameter("cid", customerId)
+                            .setParameter("oid", orderId)
+                            .getSingleResult();
+            orderEntity.setStatus(OrderStatus.CANCELLED);
+            entityManager.merge(orderEntity);
+            entityManager.getTransaction().commit();
+             cancelled = true;
+        }catch (NoResultException e) {
+            e.printStackTrace();
+        }
         return cancelled;
     }
 }
