@@ -53,4 +53,12 @@ public class CategoryEntity {
     public void setCategory(String category) {
         this.category = category;
     }
+
+    @Override
+    public String toString() {
+        return "CategoryEntity{" +
+                "id=" + id +
+                ", category='" + category + '\'' +
+                '}';
+    }
 }

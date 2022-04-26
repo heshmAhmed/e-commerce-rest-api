@@ -5,6 +5,8 @@ import gov.iti.jets.repo.entity.ProductEntity;
 import gov.iti.jets.repo.util.EntityManagerProvider;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
+import jakarta.validation.ConstraintViolationException;
+
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -43,12 +45,17 @@ public class ProductRepo {
     public boolean deleteProduct(Long id) {
         ProductEntity productEntity = entityManager.find(ProductEntity.class, id);
         boolean removed = false;
-        if(productEntity != null) {
-            entityManager.getTransaction().begin();
-            entityManager.remove(productEntity);
-            entityManager.getTransaction().commit();
-            removed = true;
+        try {
+            if(productEntity != null) {
+                entityManager.getTransaction().begin();
+                entityManager.remove(productEntity);
+                entityManager.getTransaction().commit();
+                removed = true;
+            }
+        }catch (Exception e){
+            e.printStackTrace();
         }
+
         return removed;
     }
 

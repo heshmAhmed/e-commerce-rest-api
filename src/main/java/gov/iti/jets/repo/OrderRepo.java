@@ -105,6 +105,7 @@ public class OrderRepo {
             entityManager.getTransaction().commit();
             orderEntity.setOrderProducts(orderProductEntities);
             optionalOrderEntity = Optional.of(orderEntity);
+            entityManager.clear();
         }catch (Exception e) {
             e.printStackTrace();
         }

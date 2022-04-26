@@ -47,6 +47,7 @@ public class ClerkController {
 
     @DELETE
     @Path("{id}")
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public Response deleteClerk(@PathParam("id") Long clerkId) {
         boolean deleted = clerkService.deleteClerk(clerkId);
         if(!deleted){
