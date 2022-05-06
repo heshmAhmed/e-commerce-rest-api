@@ -5,6 +5,7 @@
          xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_5_0.xsd"
          version="5.0">
 
+<!--REST-->
     <servlet>
         <servlet-name>JerseyServletContainer</servlet-name>
         <servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>
@@ -21,5 +22,20 @@
         <servlet-name>JerseyServletContainer</servlet-name>
         <url-pattern>/api/v1/*</url-pattern>
     </servlet-mapping>
+
+<!--SOAP-->
+    <listener>
+        <listener-class>
+            com.sun.xml.ws.transport.http.servlet.WSServletContextListener
+        </listener-class>
+    </listener>
+    <servlet>
+        <servlet-name>JAXWSServlet</servlet-name>
+        <servlet-class>
+            com.sun.xml.ws.transport.http.servlet.WSServlet
+        </servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
 
 </web-app>

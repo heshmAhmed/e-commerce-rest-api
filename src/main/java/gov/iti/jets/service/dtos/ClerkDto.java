@@ -14,10 +14,13 @@ public class ClerkDto {
     private String name;
     private String email;
     private Date hireDate;
+    private String password;
 
-    public ClerkDto(String name, String email, Date hireDate) {
+    public ClerkDto(String name, String email, Date hireDate, String password) {
         this.name = name;
         this.email = email;
         this.hireDate = hireDate;
+        this.password = password;
+
     }
 }
