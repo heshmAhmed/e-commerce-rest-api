@@ -17,6 +17,7 @@ public interface ProductMapper {
     default ProductDto mapEntityToDto(ProductEntity productEntity) {
         ProductDto productDto = productEntityToDto(productEntity);
         List<String> categories = new ArrayList<>();
+        System.out.println("test here : "+productEntity);
         productEntity.getCategories().forEach(category -> categories.add(category.getCategory()));
         productDto.setCategoryList(categories);
         return productDto;

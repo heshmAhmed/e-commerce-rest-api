@@ -1,4 +1,4 @@
-package gov.iti.jets.api.controllers;
+package gov.iti.jets.api.rest;
 
 import gov.iti.jets.service.CategoryService;
 import gov.iti.jets.service.ProductService;

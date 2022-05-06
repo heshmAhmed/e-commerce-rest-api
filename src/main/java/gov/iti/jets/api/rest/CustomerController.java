@@ -1,8 +1,10 @@
-package gov.iti.jets.api.controllers;
+package gov.iti.jets.api.rest;
 
 
 import gov.iti.jets.api.dtos.ErrorMessage;
-import gov.iti.jets.api.dtos.PostUserRequest;
+import gov.iti.jets.api.dtos.PostCustomerRequest;
+import gov.iti.jets.api.dtos.PostOrderRequest;
+import gov.iti.jets.api.util.Mapper;
 import gov.iti.jets.service.CustomerService;
 import gov.iti.jets.service.OrderService;
 import gov.iti.jets.service.dtos.CustomerDto;
@@ -29,8 +31,8 @@ public class CustomerController {
     }
 
     @POST
-    public Response insertCustomer(PostUserRequest customer) {
-        CustomerDto customerDto = new CustomerDto(customer.getName(), customer.getEmail(), customer.getJoinedDate(),customer.getBirthDate(),customer.getAddress());
+    public Response insertCustomer(PostCustomerRequest customer) {
+        CustomerDto customerDto = new CustomerDto(customer.getName(), customer.getEmail(), customer.getJoinedDate(),customer.getBirthDate(),customer.getAddress(), customer.getPassword());
         Optional<CustomerDto> customerDtoOptional = customerService.insertCustomer(customerDto);
         if(customerDtoOptional.isEmpty()){
             ErrorMessage errorMessage = new ErrorMessage("Resource could not be created",406, "Probably duplicate email");
@@ -60,8 +62,8 @@ public class CustomerController {
 
     @POST
     @Path("{id}/orders")
-    public Response submitOrder(@PathParam("id") Long id, OrderDto orderDto){
-        Optional<OrderDto> optionalOrderDto = orderService.submitOrder(id, orderDto);
+    public Response submitOrder(@PathParam("id") Long id, PostOrderRequest postOrderRequest){
+        Optional<OrderDto> optionalOrderDto = orderService.submitOrder(id, Mapper.INSTANCE.mapPostOrderRequestToOrderDto(postOrderRequest));
         if(optionalOrderDto.isEmpty()) {
             ErrorMessage errorMessage = new ErrorMessage("Resource could not be created",406, "Probably wrong id");
             Response response = Response.status(Status.NOT_ACCEPTABLE).entity(errorMessage).build();
