@@ -1,6 +1,7 @@
 package gov.iti.jets.api.rest;
 
 import gov.iti.jets.api.dtos.ErrorMessage;
+import gov.iti.jets.api.dtos.PostProductRequest;
 import gov.iti.jets.service.ProductService;
 import gov.iti.jets.service.dtos.ProductDto;
 import jakarta.json.Json;
@@ -21,7 +22,8 @@ public class ProductController {
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response addProduct(ProductDto productDto) {
+    public Response addProduct(PostProductRequest postProductRequest) {
+        ProductDto productDto = new ProductDto(postProductRequest.getName(),postProductRequest.getPrice(), postProductRequest.getDesc(), postProductRequest.getImg(), postProductRequest.getStock(),postProductRequest.getCategoryList());
         Optional<ProductDto> productDtoOptional = productService.addProduct(productDto);
         if(productDtoOptional.isEmpty()){
             ErrorMessage errorMessage = new ErrorMessage("Resource could not be created",406, "Probably duplicate id");
@@ -93,7 +95,7 @@ public class ProductController {
     public Response removeProduct(@PathParam("id") Long id) {
         boolean deleted = productService.removeProduct(id);
         if(!deleted) {
-            ErrorMessage errorMessage = new ErrorMessage("Resource not found", 404, "Probably wrong id");
+            ErrorMessage errorMessage = new ErrorMessage("Resource not found", 404, "Probably wrong id or product cannot be deleted");
             Response response = Response.status(Status.NOT_FOUND).entity(errorMessage).build();
             throw new NotFoundException(response);
         }
