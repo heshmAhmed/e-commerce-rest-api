@@ -19,7 +19,7 @@ An E-Commerce RESTful and SOAP web service JAX-RS, JAX-WS.
 
 
 
-## ⚙ Technologies used
+## Technologies used
 - JAX-RS (Jersey)
 - JAX-WS (Metro)
 - JSON-B
