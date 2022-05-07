@@ -1,10 +1,10 @@
 
 # E-commerce SOAP and REST API
 
-An E-Commerce RESTful and SOAP web service built using JAX-RS and JAX-WS.
+An E-Commerce RESTful and SOAP web service JAX-RS, JAX-WS.
 
 
-## 📃 Documentation
+## Documentation
 
 [Postman RESTful API](https://documenter.getpostman.com/view/7099221/UyxdKUR6)
 
@@ -12,7 +12,7 @@ An E-Commerce RESTful and SOAP web service built using JAX-RS and JAX-WS.
 
 
 
-## 📦 Features
+## Features
 - Pagination
 - Partial response
 - Filtering
@@ -27,14 +27,15 @@ An E-Commerce RESTful and SOAP web service built using JAX-RS and JAX-WS.
 - JAX-P
 - Maven
 - Map struct
-- Lomboke
+- Lombok
 - Tomcat
 - Jakarta persistance (Hibernate)
 - MySql
 - Intellij IDEA Ultimate
 - Postman
 - SOAP-UI
-## 🛠 Run with Maven
+
+## Run with Maven
 Clone the project
 
 ```bash
@@ -53,5 +54,3 @@ Go to the project directory
 ```
   mvn clean package tomcat7:deploy
 ```
-## 👷‍ Contributors
-- [Hesham Ahmed](https://github.com/heshmAhmed)
