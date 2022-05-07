@@ -20,6 +20,8 @@ public enum Mapper {
         orderDto.setOrderProducts(
         postOrderRequest.getOrderProducts().stream().map(postOrderProductRequest -> {
             OrderProductDto orderProductDto = new OrderProductDto();
+            orderProductDto.setQuantity(postOrderProductRequest.getQuantity());
+            orderProductDto.setTotal(postOrderProductRequest.getTotal());
             OrderProductId orderProductId = new OrderProductId();
             orderProductId.setProductId(postOrderProductRequest.getProductId());
             orderProductDto.setId(orderProductId);
